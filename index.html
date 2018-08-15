@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Restrict Special Characters</title>
+    <style>
+    * {
+    font-family: arial;
+    margin: 0;
+    padding: 0;
+    }
+    body {
+    padding-top: 50px;
+    }
+    body {
+    margin: 0 auto;
+    width: 600px;
+    }
+    form {
+    border-bottom: 1px solid #efefef;
+    margin-bottom: 20px;
+    padding-bottom: 40px;
+	}
+    h3, label, textarea {
+    display: inline-block;;
+    margin-bottom: 20px;
+    width: 100%;
+    }
+	pre,
+	code {
+	font-family: monospace, monospace;
+	font-size: 1em;
+	}
+
+	pre {
+	margin-top: 0;
+	margin-bottom: 1rem;
+	/*overflow: auto;
+	-ms-overflow-style: scrollbar;*/
+	}
+	code,
+	kbd,
+	pre,
+	samp {
+	font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	}
+
+	code {
+	font-size: 87.5%;
+	color: #e83e8c;
+	word-break: break-word;
+	}
+    </style>
+
+</head>
+<body>
+
+<form>
+	<h3>Restrict Special Characters</h3>
+	<label>The following text area will not allow special characters to be entered:</label>
+	<label>Such as<br />: ; " ' ! @ $ % * ( ) - + =</label>
+	<textarea name="" id="" onkeyup="valid(this)" onblur="valid(this)"></textarea>
+</form>
+
+<h3>The HTML</h3>
+<pre><code>&lt;textarea name="" id="" onkeyup="valid(this)" onblur="valid(this)"&gt;&lt;/textarea&gt;</code></pre>
+<h3>The Javascript</h3>
+<pre><code>function valid(f) {
+	//requires: onkeyup="valid(this)" onblur="valid(this)"
+	//the following is still able to be entered:
+	// ` \u0060 | &#96;
+	// # \u0023 | &#35;
+	// ^ \u005E | &#94;
+	// & \u0026 | &#38;
+	// ; \u003B | &#59; 
+
+	!(/^[A-z&#209;&#241;0-9]*$/i).test(f.value)?f.value = f.value.replace(/[^A-z&#209;&#241;0-9]/ig,''):null;	
+}<code></pre>
+
+</body>
+</html>
+<script>
+function valid(f) {
+	//requires: onkeyup="valid(this)" onblur="valid(this)"
+	//the following is still able to be entered:
+	// ` \u0060 | &#96;
+	// # \u0023 | &#35;
+	// ^ \u005E | &#94;
+	// & \u0026 | &#38;
+	// ; \u003B | &#59; 
+
+	!(/^[A-z&#209;&#241;0-9]*$/i).test(f.value)?f.value = f.value.replace(/[^A-z&#209;&#241;0-9]/ig,''):null;	
+}
+</script>
